@@ -5,6 +5,7 @@ import java.util.Properties;
 import java.time.Duration;
 import kafka.beans.Book;
 import kafka.beans.KafkaRecord;
+import kafka.beans.Pencil;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -24,8 +25,15 @@ public class CustomExecutor implements Runnable {
     Consumer<String, KafkaRecord> pencilConsumer = getPencilConsumer();
     while(true) {
       ConsumerRecords<String, KafkaRecord> pencilRecords = pencilConsumer.poll(Duration.ofMillis(1000));
-      pencilRecords.forEach(bean -> System.out.println(bean.value()));
+      pencilRecords.forEach(bean -> playWithRecord(bean.value()));
     }
+  }
+
+  private void playWithRecord(Object record) {
+    System.out.println("Record class: " + record.getClass()); // Record class: class kafka.beans.Pencil
+    System.out.println("record instanceof KafkaRecord: " + (record instanceof KafkaRecord)); // record instanceof KafkaRecord: false
+    System.out.println("record instanceof Pencil: " + (record instanceof Pencil)); // record instanceof Pencil: true
+    System.out.println("toString() :" + record); // toString() :Pencil{color='Red'}
   }
 
   public static void main(String... args) {

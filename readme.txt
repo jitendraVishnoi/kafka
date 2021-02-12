@@ -5,6 +5,8 @@
 4. start producer.
 
 5. Run CustomExecutor with - comment/uncomment line 18-22 OR 24-88 [One block at a time]
+   for build : mvn clean compile assembly:single
+   for running : java -jar target\kafka-test-1.0-SNAPSHOT-jar-with-dependencies.jar
 6. enter below text in producer window -
   a) for book - {"name":"History"}
   b) for pencil - {"color":"Red"}
